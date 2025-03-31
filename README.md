@@ -1,9 +1,10 @@
-# Roblox project template
+# UILib
 
-Just template of project for roblox game for vscode
+Small library that implement some UI elements 
 
-## Projects
+## Classes
 
-`tests.project.json` - project with unit tests
-
-`roblox-project-template.project.json` - project with game
++ Slider
++ Window
++ DropDownList
++ Tabs
