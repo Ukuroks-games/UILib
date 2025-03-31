@@ -19,49 +19,25 @@
             },
             "detail": "Install all project depends",
             "problemMatcher": [],
-            "dependsOn": ["Install programs"]
         },
         {
             "type": "shell",
-            "label": "Build game",
-            "command": "rojo build ${workspaceFolderBasename}.project.json --output ${workspaceFolderBasename}.rbxl && exit",
-            "group": {
-                "kind": "build",
-                "isDefault": true
-            },
-            "detail": "Build game",
-            "dependsOn": ["Load depends"]
-        },
-        {
-            "type": "shell",
-            "label": "Build tests",
+            "label": "Build",
             "detail": "Build tests place",
             "command": "rojo build tests.project.json --output tests.rbxl && exit",
             "group": {
                 "kind": "build",
                 "isDefault": true
-            },
-            "dependsOn": ["Load depends"]
+            }
         },
         {
             "type": "shell",
-            "label": "Generate sourcemap for game",
-            "detail": "Generate sourcemap for game project",
-            "command": "rojo sourcemap ${workspaceFolderBasename}.project.json --output sourcemap.json && exit",
-            "group": {
-                "kind": "none"
-            },
-            "dependsOn": ["Load depends"]
-        },
-        {
-            "type": "shell",
-            "label": "Generate sourcemap for tests",
+            "label": "Generate sourcemap",
             "detail": "Generate sourcemap for tests project",
             "command": "rojo sourcemap tests.project.json --output sourcemap.json && exit",
             "group": {
                 "kind": "none"
-            },
-            "dependsOn": ["Load depends"]
+            }
         }
     ],
     "windows": {

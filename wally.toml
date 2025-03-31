@@ -1,5 +1,5 @@
 [package]
-name = "egor00f/UILib"
+name = "egor00f/uilib"
 
 description = "small library that implement some UI elements"
 
@@ -23,7 +23,7 @@ include = ["src", "src/**", "wally.toml", "README.md", "init.lua"]
 private = false
 
 [dependencies]
-
+stdlib = "egor00f/stdlib@>=0.1.8"
 
 [server-dependencies]
 

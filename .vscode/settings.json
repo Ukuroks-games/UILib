@@ -22,6 +22,6 @@
 		"*.toml"	// ignore toml files
 	],
 
-	"luau-lsp.sourcemap.rojoProjectFile": "${workspaceFolderBasename}.project.json",
+	"luau-lsp.sourcemap.rojoProjectFile": "tests.project.json",
 	"luau-lsp.platform.type": "roblox"
 }

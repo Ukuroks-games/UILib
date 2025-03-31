@@ -6,7 +6,7 @@ export type Slider = {
 	
 }
 
-function silder.new(): Slider
+function slider.new(): Slider
     local self = {
 		
     }
