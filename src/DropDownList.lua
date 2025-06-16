@@ -34,10 +34,17 @@ export type DropDownList<Index> = {
 		Закрыть список
 	]]
 	Close: (self: DropDownList<Index>) -> Tween,
+
+	Connections: { RBXScriptConnection }
 }
 
 function dropDownList.Destroy<Index>(self: DropDownList<Index>)
 	
+	for _, v in pairs(self.Connections) do
+		if v then
+			v:Disconnect()
+		end
+	end
 
 	table.clear(self)
 end
@@ -59,41 +66,50 @@ function dropDownList.Open<Index>(self: DropDownList<Index>): Tween
 end
 
 function dropDownList.Close<Index>(self: DropDownList<Index>): Tween
-	local t = TweenService:Create(
-		self.ListBackground,
-		TweenInfo.new(self.OpenAnimationTime),
-		{
-			["Size"] = UDim2.new(self.ListBackground.Size.X, UDim.new(0, 0))
-		}
-	)
+	if self.State ~= dropDownList.State.Close then
+		local t = TweenService:Create(
+			self.ListBackground,
+			TweenInfo.new(self.OpenAnimationTime),
+			{
+				["Size"] = UDim2.new(self.ListBackground.Size.X, UDim.new(0, 0))
+			}
+		)
 
-	self.State = dropDownList.State.Close
+		self.State = dropDownList.State.Close
 
-	t:Play()
+		t:Play()
 
-	return t
+		return t
+	else
+		return nil
+	end
 end
 
 --[[
+	Constructor
 
+	OpenButton - button that open/close list
+
+	points - list of content of list
+
+	OpenSize - how long list down
+
+	ListBackground - background opened list. If you want you can add image to background of list using it. 
 ]]
-function dropDownList.new<Index>(OpenButton: GuiButton, points: { [Index]: Frame }, OpenSize: UDim, OpenAnimationTime: number, ListBackground: Frame?): DropDownList<Index>
+function dropDownList.new<Index>(OpenButton: GuiButton, points: { [Index]: Frame }, OpenSize: UDim, OpenAnimationTime: number?, ListBackground: Frame?): DropDownList<Index>
 
     local self: DropDownList<Index> = {
 		OpenButton = OpenButton,
 		Buttons = {},
 		OpenSize = OpenSize,
-		OpenAnimationTime = OpenAnimationTime,
+		OpenAnimationTime = OpenAnimationTime or 0.2,
 		ListBackground = ListBackground or Instance.new("Frame"),
-		State = nil,
+		State = dropDownList.State.Close,
+		Connections = {}
 
 		Open = dropDownList.Open,
 		Close = dropDownList.Close
     }
-
-	self.OpenAnimationTime = 0
-	self:Open():Destroy()
-	self.OpenAnimationTime = OpenAnimationTime	-- restore OpenAnimationTime
 
 	Instance.new("UIListLayout").Parent = self.ListBackground
 
@@ -105,13 +121,16 @@ function dropDownList.new<Index>(OpenButton: GuiButton, points: { [Index]: Frame
 	end
 
 
-	self.OpenButton.MouseButton1Click:Connect(function(...: any)
-		if self.State == true then
-			self:Close()
-		else
-			self:Open()
-		end
-	end)
+	table.insert(
+		self.Connections,
+		self.OpenButton.MouseButton1Click:Connect(function(...: any)
+			if self.State == true then
+				self:Close()
+			else
+				self:Open()
+			end
+		end)
+	)
 
 	return self
 end
