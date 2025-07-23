@@ -19,12 +19,32 @@
             },
             "detail": "Install all project depends",
             "problemMatcher": [],
+          
         },
         {
             "type": "shell",
-            "label": "Build",
+            "label": "Publish",
+            "detail": "Putblish this library as wally package",
+            "command": "make publish && exit",
+            "group": {
+                "kind": "none"
+            },
+        },
+        {
+            "type": "shell",
+            "label": "Build tests",
             "detail": "Build tests place",
-            "command": "rojo build tests.project.json --output tests.rbxl && exit",
+            "command": "make tests && exit",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
+            "type": "shell",
+            "label": "Build rbxm",
+            "detail": "Build rbxm library",
+            "command": "make rbxm && exit",
             "group": {
                 "kind": "build",
                 "isDefault": true
@@ -33,12 +53,21 @@
         {
             "type": "shell",
             "label": "Generate sourcemap",
-            "detail": "Generate sourcemap for tests project",
-            "command": "rojo sourcemap tests.project.json --output sourcemap.json && exit",
+            "detail": "Generate sourcemap for this library",
+            "command": "make sourcemap && exit",
             "group": {
                 "kind": "none"
             }
-        }
+        },
+        {
+            "type": "shell",
+            "label": "Lint",
+            "detail": "Run selene",
+            "command": "make lint && exit",
+            "group": {
+                "kind": "none",
+            }
+        },
     ],
     "windows": {
         "options": {

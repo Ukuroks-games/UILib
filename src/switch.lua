@@ -1,5 +1,7 @@
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local TweenService = game:GetService("TweenService")
 
+local stdlib = require(ReplicatedStorage.Packages.stdlib)
 local defaultSwitch = require(script.Parent.defaultSwitch)
 
 --[[
@@ -8,7 +10,7 @@ local defaultSwitch = require(script.Parent.defaultSwitch)
 local switch = {}
 
 --[[
-	Тот самый свит переключатель
+	Тот самый свитч переключатель
 ]]
 export type Switch = {
 	--[[
@@ -22,13 +24,13 @@ export type Switch = {
 	ball: Frame,
 
 	ballRadius: Frame,
-	barRadius: Frame,
-	background: Frame
+	barRadius: UICorner,
+	background: UICorner
 } & defaultSwitch.DefaultSwitch
 
 function switch.CalcSizes(self: Switch)
 
-	self.barRadius = UDim.new(0, math.floor(self.ball.AbsoluteSize.X / 2))
+	self.barRadius.CornerRadius = UDim.new(0, math.floor(self.ball.AbsoluteSize.X / 2))
 
 
 end
@@ -45,7 +47,7 @@ function switch.EnableAnimation(self: Switch)
 				1, 
 				-(self.ball.AbsoluteSize.X / 2),
 				self.ball.Position.Y.Scale,
-				self.ball.Position.Y.Offset,
+				self.ball.Position.Y.Offset
 			)
 		}
 	)
@@ -63,7 +65,7 @@ function switch.DisableAnimation(self: Switch)
 				0, 
 				(self.ball.AbsoluteSize.X / 2),
 				self.ball.Position.Y.Scale,
-				self.ball.Position.Y.Offset,
+				self.ball.Position.Y.Offset
 			)
 		}
 	)
@@ -80,21 +82,20 @@ end
 
 function switch.new(background: Frame, state: boolean?): Switch
 
-	local self = setmetatable(
-		{
-			bar = Instance.new("Frame"),
-			ball = Instance.new("Frame"),
-			ballRadius = Instance.new("UICorner"),
-			barRadius = Instance.new("UICorner"),
-			background = background
-		},
-		defaultSwitch.new(
-			Instance.new("TextButton"),
-			state,
-			switch.EnableAnimation,
-			switch.DisableAnimation
-		)
+	local self = defaultSwitch.new(
+		Instance.new("TextButton"),
+		state,
+		switch.EnableAnimation,
+		switch.DisableAnimation
 	)
+
+	stdlib.utility.merge(self, {
+		bar = Instance.new("Frame"),
+		ball = Instance.new("Frame"),
+		ballRadius = Instance.new("UICorner"),
+		barRadius = Instance.new("UICorner"),
+		background = background
+	})
 
 	self.bar.Parent = background
 	self.bar.Size = UDim2.fromScale(1, 0.86)

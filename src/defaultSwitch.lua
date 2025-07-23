@@ -54,11 +54,12 @@ end
 
 function defaultSwitch.new(button: GuiButton, state: boolean?, enableAnimation: ((self: DefaultSwitch) -> Tween?)?, disableAnimation: ((self: DefaultSwitch) -> Tween?)?): DefaultSwitch
 	local self = {
-		Button = button
-		State = Instance.new("BoolValue")
+		Button = button,
+		State = Instance.new("BoolValue"),
 		EnableAnimation = enableAnimation,
 		DisableAnimation = disableAnimation,
 		AnimationMutex = mutex.new(),
+		connections = {},
 
 		SetState = defaultSwitch.SetState
 	}
@@ -92,7 +93,7 @@ function defaultSwitch.new(button: GuiButton, state: boolean?, enableAnimation: 
 				if tween then
 					tween:Play()
 
-					tween.Complete:Wait()
+					tween.Completed:Wait()
 				end
 			end
 
