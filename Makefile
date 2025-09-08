@@ -22,7 +22,8 @@ SOURCES =	src/checkbox.lua	\
 			src/slider.lua	\
 			src/switch.lua	\
 			src/tabs.lua	\
-			src/window.lua	\
+			src/window/window.lua	\
+			src/window/skin.lua
 
 TEST_POSTFIX = client.lua
 

@@ -33,7 +33,7 @@ export type DropDownList<Index> = {
 	--[[
 		Закрыть список
 	]]
-	Close: (self: DropDownList<Index>) -> Tween,
+	Close: (self: DropDownList<Index>) -> Tween?,
 
 	Connections: { RBXScriptConnection }
 }
@@ -65,7 +65,7 @@ function dropDownList.Open<Index>(self: DropDownList<Index>): Tween
 	return t
 end
 
-function dropDownList.Close<Index>(self: DropDownList<Index>): Tween
+function dropDownList.Close<Index>(self: DropDownList<Index>): Tween?
 	if self.State ~= dropDownList.State.Close then
 		local t = TweenService:Create(
 			self.ListBackground,
@@ -96,7 +96,7 @@ end
 
 	ListBackground - background opened list. If you want you can add image to background of list using it. 
 ]]
-function dropDownList.new<Index>(OpenButton: GuiButton, points: { [Index]: Frame }, OpenSize: UDim, OpenAnimationTime: number?, ListBackground: Frame?): DropDownList<Index>
+function dropDownList.new<Index>(OpenButton: GuiButton, points: { [Index]: GuiObject }, OpenSize: UDim, OpenAnimationTime: number?, ListBackground: Frame?): DropDownList<Index>
 
     local self: DropDownList<Index> = {
 		OpenButton = OpenButton,
@@ -105,7 +105,7 @@ function dropDownList.new<Index>(OpenButton: GuiButton, points: { [Index]: Frame
 		OpenAnimationTime = OpenAnimationTime or 0.2,
 		ListBackground = ListBackground or Instance.new("Frame"),
 		State = dropDownList.State.Close,
-		Connections = {}
+		Connections = {},
 
 		Open = dropDownList.Open,
 		Close = dropDownList.Close

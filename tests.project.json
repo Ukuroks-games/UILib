@@ -13,12 +13,28 @@
 		},
 		"Workspace": {
 			"$className": "Workspace",
-			"$path": "tests"
+			"$properties": {
+				"Gravity": 0
+			}
+		},
+		"StarterPlayer": {
+			"$className": "StarterPlayer",
+			"StarterPlayerScripts": {
+				"$className": "StarterPlayerScripts",
+				"$path": "tests"
+			}
 		},
 		"StarterGui": {
 			"$className": "StarterGui",
 			"StarterScreen": {
-				"$className": "ScreenGui"
+				"$className": "ScreenGui",
+				"BarBackground": {
+					"$className": "Frame",
+					"$properties": {
+						"Size": {"UDim2": [[0.5, 0], [0.5, 0]]},
+						"Position": {"UDim2": [[0.5, 0], [0, 0]]}
+					}
+				}
 			}
 		}
 	}

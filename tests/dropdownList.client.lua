@@ -1,10 +1,11 @@
+local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
-local StarterGui = game:GetService("StarterGui")
-
-local DropdownList = require(ReplicatedStorage.shared.DropDownList)
 
 
-local gui = StarterGui.ScreenGui
+local DropdownList = require(ReplicatedStorage.Packages.UILib.DropDownList)
+
+
+local gui = Players.LocalPlayer.PlayerGui:WaitForChild("StarterScreen")
 
 local OpenButton = Instance.new("TextButton")
 OpenButton.Parent = gui
@@ -13,7 +14,7 @@ OpenButton.Text = "Open dropdown list"
 local CloseButton = Instance.new("TextButton")
 CloseButton.Text = "Close"
 
-local List = DropDownList.new(
+local List = DropdownList.new(
 	OpenButton, 
 	{
 		Instance.new("TextLabel"),
