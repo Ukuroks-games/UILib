@@ -6,6 +6,7 @@
 /*.rbxl.lock
 *.rbxl
 *.rbxm
+*.zip
 
 wally.lock
 sourcemap.json
@@ -13,3 +14,6 @@ sourcemap.json
 Packages/
 DevPackages/
 ServerPackages/
+
+build/
+

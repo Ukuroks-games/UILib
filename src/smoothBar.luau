@@ -4,7 +4,7 @@ local bar = require(script.Parent.bar)
 
 local SmoothBar = setmetatable({}, {__index = bar})
 
-export type SmoothBar = typeof(setmetatable({} :: {Speed: number}, {__index = SmoothBar}))
+export type SmoothBar = typeof(setmetatable({} :: {Speed: number} & bar.BarStruct, {__index = SmoothBar}))
 
 function SmoothBar.UpdateFill(self: SmoothBar)
 	local t = TweenService:Create(self.BarFill, TweenInfo.new(self.Speed), {Size = UDim2.new(1, 0, self.Fill.Value, 0)})

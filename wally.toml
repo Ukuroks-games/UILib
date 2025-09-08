@@ -16,10 +16,6 @@ repository = "https://github.com/Egor00f/UILib"
 
 authors = ["Egor00f <velikiydolbayeb@gmail.com>"]
 
-exclude = ["*"]
-
-include = ["src", "src/**", "wally.toml", "README.md", "init.lua"]
-
 private = false
 
 [dependencies]

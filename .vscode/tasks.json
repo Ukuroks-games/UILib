@@ -8,7 +8,7 @@
             "group": {
                 "kind": "none"
             },
-            "problemMatcher": [],
+            "problemMatcher": []
         },
         {
             "type": "shell",
@@ -18,8 +18,7 @@
                 "kind": "none"
             },
             "detail": "Install all project depends",
-            "problemMatcher": [],
-          
+            "problemMatcher": []
         },
         {
             "type": "shell",
@@ -29,6 +28,7 @@
             "group": {
                 "kind": "none"
             },
+            "problemMatcher": []
         },
         {
             "type": "shell",
@@ -65,9 +65,9 @@
             "detail": "Run selene",
             "command": "make lint && exit",
             "group": {
-                "kind": "none",
+                "kind": "none"
             }
-        },
+        }
     ],
     "windows": {
         "options": {
