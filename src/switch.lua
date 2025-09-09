@@ -25,68 +25,49 @@ export type Switch = {
 
 	ballRadius: Frame,
 	barRadius: UICorner,
-	background: UICorner
+	background: UICorner,
 } & defaultSwitch.DefaultSwitch
 
 function switch.CalcSizes(self: Switch)
-
-	self.barRadius.CornerRadius = UDim.new(0, math.floor(self.ball.AbsoluteSize.X / 2))
-
-
+	self.barRadius.CornerRadius =
+		UDim.new(0, math.floor(self.ball.AbsoluteSize.X / 2))
 end
 
-function switch.EnableAnimation(self: Switch)
-
-	return TweenService:Create(
-		self.ball,
-		TweenInfo.new(
-			0.2
+function switch.EnableAnimation(self: Switch): Tween?
+	return TweenService:Create(self.ball, TweenInfo.new(0.2), {
+		Position = UDim2.new(
+			1,
+			-(self.ball.AbsoluteSize.X / 2),
+			self.ball.Position.Y.Scale,
+			self.ball.Position.Y.Offset
 		),
-		{
-			Position = UDim2.new(
-				1, 
-				-(self.ball.AbsoluteSize.X / 2),
-				self.ball.Position.Y.Scale,
-				self.ball.Position.Y.Offset
-			)
-		}
-	)
+	})
 end
 
-function switch.DisableAnimation(self: Switch)
-
-	return TweenService:Create(
-		self.ball,
-		TweenInfo.new(
-			0.2
+function switch.DisableAnimation(self: Switch): Tween?
+	return TweenService:Create(self.ball, TweenInfo.new(0.2), {
+		Position = UDim2.new(
+			0,
+			(self.ball.AbsoluteSize.X / 2),
+			self.ball.Position.Y.Scale,
+			self.ball.Position.Y.Offset
 		),
-		{
-			Position = UDim2.new(
-				0, 
-				(self.ball.AbsoluteSize.X / 2),
-				self.ball.Position.Y.Scale,
-				self.ball.Position.Y.Offset
-			)
-		}
-	)
-
+	})
 end
 
 function switch.Destroy(self: Switch)
-
 	self.bar:Destroy()
 	self.ball:Destroy()
 
-	defaultSwitch:Destroy(self)
+	defaultSwitch.Destroy(self)
 end
 
 function switch.new(background: Frame, state: boolean?): Switch
-
 	local self = defaultSwitch.new(
 		Instance.new("TextButton"),
 		state,
-		switch.EnableAnimation,
-		switch.DisableAnimation
+		switch.EnableAnimation :: defaultSwitch.Func,
+		switch.DisableAnimation :: defaultSwitch.Func
 	)
 
 	stdlib.utility.merge(self, {
@@ -94,24 +75,23 @@ function switch.new(background: Frame, state: boolean?): Switch
 		ball = Instance.new("Frame"),
 		ballRadius = Instance.new("UICorner"),
 		barRadius = Instance.new("UICorner"),
-		background = background
+		background = background,
 	})
 
 	self.bar.Parent = background
 	self.bar.Size = UDim2.fromScale(1, 0.86)
 
-	self.ball.Parent = bar
+	self.ball.Parent = self.bar
 	self.ball.Size = UDim2.fromScale(0.5, 1)
 
 	self.Button.Parent = background
 	self.Button.Text = ""
-	self.Button.Size = UDim2.fromScale(1,1)
+	self.Button.Size = UDim2.fromScale(1, 1)
 
-	self.ballRadius.Parent = ball
+	self.ballRadius.Parent = self.ball
 	self.ballRadius.Corner = UDim.new(1, 0)
 
-	self.barRadius.Parent = bar
-	
+	self.barRadius.Parent = self.bar
 
 	return self
 end

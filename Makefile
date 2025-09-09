@@ -16,14 +16,16 @@ BUILD_DIR = build
 
 RBXM_BUILD = $(LIBNAME)lib.rbxm
 
-SOURCES =	src/checkbox.lua	\
-			src/defaultSwitch.lua	\
-			src/DropDownList.lua	\
-			src/slider.lua	\
-			src/switch.lua	\
-			src/tabs.lua	\
-			src/window/window.lua	\
-			src/window/skin.lua
+SOURCES =	\
+	src/init.luau	\
+	src/slider.lua	\
+	src/switch.lua	\
+	src/tabs.lua	\
+	src/checkbox.lua	\
+	src/defaultSwitch.lua	\
+	src/DropDownList.lua	\
+	src/window/window.lua	\
+	src/window/skin.lua
 
 TEST_POSTFIX = client.lua
 
@@ -32,8 +34,14 @@ TESTS_SOURCES =	tests/dropdownList.$(TEST_POSTFIX)
 $(BUILD_DIR): 
 	mkdir $@
 
-./Packages: wally.toml
+wallyInstall:	wally.toml
 	wally install
+	rojo sourcemap tests.project.json --output sourcemap.json
+
+wally.lock:	wallyInstall
+
+./Packages:	wallyInstall
+	-wally-package-types --sourcemap sourcemap.json $@
 	
 
 

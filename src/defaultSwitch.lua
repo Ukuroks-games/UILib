@@ -1,8 +1,6 @@
-
 -- Services
 
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
-
 
 -- Libs
 
@@ -17,20 +15,24 @@ local mutex = stdlib.mutex
 ]]
 local defaultSwitch = {}
 
-export type DefaultSwitch = {
+export type Func = (self: DefaultSwitch) -> Tween?
+
+export type DefaultSwitchStruct = {
 	State: BoolValue,
 	Button: GuiButton,
-	
-	EnableAnimation: ((self: DefaultSwitch) -> Tween?)?,
 
-	DisableAnimation: ((self: DefaultSwitch) -> Tween?)?,
+	AnimationMutex: stdlib.Mutex,
 
-	SetState: (self: DefaultSwitch, newState: boolean) -> nil,
+	EnableAnimation: Func,
+	DisableAnimation: Func,
 
-	AnimationMutex: mutex.Mutex,
-
-	connections: { RBXScriptConnection }
+	connections: { RBXScriptConnection },
 }
+
+export type DefaultSwitch = typeof(setmetatable(
+	{} :: DefaultSwitchStruct,
+	{ __index = defaultSwitch }
+))
 
 --[[
 	Destroy default switch 
@@ -45,26 +47,33 @@ function defaultSwitch.Destroy(self: DefaultSwitch)
 			v = nil
 		end
 	end
-
 end
 
 function defaultSwitch.SetState(self: DefaultSwitch, newState: boolean)
 	self.State.Value = newState
 end
 
-function defaultSwitch.new(button: GuiButton, state: boolean?, enableAnimation: ((self: DefaultSwitch) -> Tween?)?, disableAnimation: ((self: DefaultSwitch) -> Tween?)?): DefaultSwitch
-	local self = {
+function defaultSwitch.new(
+	button: GuiButton,
+	state: boolean?,
+	enableAnimation: Func?,
+	disableAnimation: Func?
+): DefaultSwitch
+	local self: DefaultSwitchStruct = {
 		Button = button,
 		State = Instance.new("BoolValue"),
-		EnableAnimation = enableAnimation,
-		DisableAnimation = disableAnimation,
 		AnimationMutex = mutex.new(),
 		connections = {},
 
-		SetState = defaultSwitch.SetState
+		EnableAnimation = enableAnimation,
+		DisableAnimation = disableAnimation,
+
+		SetState = defaultSwitch.SetState,
 	}
 
 	self.State.Value = state or false
+
+	setmetatable(self, { __index = defaultSwitch })
 
 	table.insert(
 		self.connections,
@@ -76,18 +85,16 @@ function defaultSwitch.new(button: GuiButton, state: boolean?, enableAnimation: 
 	table.insert(
 		self.connections,
 		self.State.Changed:Connect(function(newValue: boolean)
-
 			self.AnimationMutex:wait()
 			self.AnimationMutex:lock()
 
 			if self.DisableAnimation and self.EnableAnimation then
-
 				local tween: Tween? = nil
 
 				if newValue then
-					tween = self.EnableAnimation()
+					tween = self:EnableAnimation()
 				else
-					tween = self.DisableAnimation()
+					tween = self:DisableAnimation()
 				end
 
 				if tween then
@@ -103,7 +110,5 @@ function defaultSwitch.new(button: GuiButton, state: boolean?, enableAnimation: 
 
 	return self
 end
-
-
 
 return defaultSwitch

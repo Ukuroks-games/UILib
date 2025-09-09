@@ -11,8 +11,8 @@ function SmoothBar.UpdateFill(self: SmoothBar)
 	t:Play()
 end
 
-function SmoothBar.new(bar: bar.Bar, speed: number?): SmoothBar
-	local self = bar
+function SmoothBar.new(b: bar.Bar, speed: number?): SmoothBar
+	local self = b
 	self.Speed = speed or 0.2
 
 	setmetatable(self, {__index = SmoothBar})

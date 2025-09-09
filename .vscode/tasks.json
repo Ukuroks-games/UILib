@@ -57,7 +57,8 @@
             "command": "make sourcemap && exit",
             "group": {
                 "kind": "none"
-            }
+            },
+            "problemMatcher": []
         },
         {
             "type": "shell",
@@ -66,7 +67,8 @@
             "command": "make lint && exit",
             "group": {
                 "kind": "none"
-            }
+            },
+            "problemMatcher": []
         }
     ],
     "windows": {
