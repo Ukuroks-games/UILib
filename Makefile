@@ -61,21 +61,21 @@ publish: configure	$(SOURCES)
 lint:
 	selene src/ tests/
 
-$(RBXM_BUILD):	library.project.json	$(SOURCES)
+$(RBXM_BUILD):	library.project.json	$(SOURCES)	./Packages
 	rojo build library.project.json --output $@
 
-rbxm: clean-rbxm $(RBXM_BUILD)
+rbxm:	$(RBXM_BUILD)
 
 tests.rbxl:	./Packages	tests.project.json	$(SOURCES)	$(TESTS_SOURCES)
 	rojo build tests.project.json --output $@
 
-tests:	clean-tests	tests.rbxl
+tests:	tests.rbxl
 
 sourcemap.json:	./Packages	tests.project.json
 	rojo sourcemap tests.project.json --output $@
 
 # Re gen sourcemap
-sourcemap:	clean-sourcemap	sourcemap.json
+sourcemap:	sourcemap.json
 
 
 clean-sourcemap: 
