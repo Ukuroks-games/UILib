@@ -7,7 +7,7 @@ local dropDownList = {}
 
 dropDownList.State = {
 	Opened = true,
-	Close = false
+	Close = false,
 }
 
 export type DropDownList<Index> = {
@@ -35,11 +35,10 @@ export type DropDownList<Index> = {
 	]]
 	Close: (self: DropDownList<Index>) -> Tween?,
 
-	Connections: { RBXScriptConnection }
+	Connections: { RBXScriptConnection },
 }
 
 function dropDownList.Destroy<Index>(self: DropDownList<Index>)
-	
 	for _, v in pairs(self.Connections) do
 		if v then
 			v:Disconnect()
@@ -54,7 +53,7 @@ function dropDownList.Open<Index>(self: DropDownList<Index>): Tween
 		self.ListBackground,
 		TweenInfo.new(self.OpenAnimationTime),
 		{
-			["Size"] = UDim2.new(self.ListBackground.Size.X, self.OpenSize)
+			["Size"] = UDim2.new(self.ListBackground.Size.X, self.OpenSize),
 		}
 	)
 
@@ -71,7 +70,10 @@ function dropDownList.Close<Index>(self: DropDownList<Index>): Tween?
 			self.ListBackground,
 			TweenInfo.new(self.OpenAnimationTime),
 			{
-				["Size"] = UDim2.new(self.ListBackground.Size.X, UDim.new(0, 0))
+				["Size"] = UDim2.new(
+					self.ListBackground.Size.X,
+					UDim.new(0, 0)
+				),
 			}
 		)
 
@@ -96,9 +98,14 @@ end
 
 	ListBackground - background opened list. If you want you can add image to background of list using it. 
 ]]
-function dropDownList.new<Index>(OpenButton: GuiButton, points: { [Index]: GuiObject }, OpenSize: UDim, OpenAnimationTime: number?, ListBackground: Frame?): DropDownList<Index>
-
-    local self: DropDownList<Index> = {
+function dropDownList.new<Index>(
+	OpenButton: GuiButton,
+	points: { [Index]: GuiObject },
+	OpenSize: UDim,
+	OpenAnimationTime: number?,
+	ListBackground: Frame?
+): DropDownList<Index>
+	local self: DropDownList<Index> = {
 		OpenButton = OpenButton,
 		Buttons = {},
 		OpenSize = OpenSize,
@@ -108,18 +115,16 @@ function dropDownList.new<Index>(OpenButton: GuiButton, points: { [Index]: GuiOb
 		Connections = {},
 
 		Open = dropDownList.Open,
-		Close = dropDownList.Close
-    }
+		Close = dropDownList.Close,
+	}
 
 	Instance.new("UIListLayout").Parent = self.ListBackground
 
 	for i, v in pairs(points) do
-		
 		v.Parent = self.ListBackground
 
 		self.Buttons[i] = v
 	end
-
 
 	table.insert(
 		self.Connections,

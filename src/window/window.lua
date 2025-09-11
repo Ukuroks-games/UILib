@@ -2,8 +2,6 @@
 
 local UserInputService = game:GetService("UserInputService")
 
-
-
 local skin = require(script.Parent.skin)
 
 --[[
@@ -15,10 +13,13 @@ export type WindowStruct = {
 	MainFrame: Frame,
 }
 
-export type Window = WindowStruct & typeof(window)
+export type Window = typeof(setmetatable(
+	{} :: WindowStruct,
+	{ __index = window }
+))
 
 function window.SetSkin(self: WindowStruct, WindowSkin: skin.WindowSkin)
-    self.MainFrame.BackgroundColor3 = WindowSkin.WorkColor
+	self.MainFrame.BackgroundColor3 = WindowSkin.WorkColor
 end
 
 function window.new(WindowSkin: skin.WindowSkin, mainFrame: Frame?): Window

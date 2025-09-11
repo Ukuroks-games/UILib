@@ -1,7 +1,6 @@
-local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local TweenService = game:GetService("TweenService")
 
-local stdlib = require(ReplicatedStorage.Packages.stdlib)
+local stdlib = require(script.Parent.Parent.stdlib)
 local defaultSwitch = require(script.Parent.defaultSwitch)
 
 --[[
