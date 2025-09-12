@@ -1,6 +1,9 @@
---[[
-	Класс вкладок
-]]
+--[=[
+	https://material.io/components/tabs
+
+	@class Tabs
+	@client
+]=]
 local tabs = {}
 
 export type Tabs<Index> = {
@@ -24,11 +27,23 @@ export type Tabs<Index> = {
 	Destroy: (self: Tabs<Index>) -> nil
 }
 
+--[=[
+	@prop ButtonType {Image: "Image", Text: "Text"}
+	@within Tabs
+	@tag Enum
+]=]
 tabs.ButtonType = {
 	Image = "Image",
 	Text = "Text"
 }
 
+--[=[
+	@param self Tabs<Index>
+	@param destroyAll boolean?	-- destroy tabs too
+
+	@method Destroy
+	@within Tabs
+]=]
 function tabs.Destroy<Index>(self: Tabs<Index>, destroyAll: boolean?)
 
 	if destroyAll then
@@ -49,7 +64,15 @@ function tabs.Destroy<Index>(self: Tabs<Index>, destroyAll: boolean?)
 	table.clear(self)
 
 end
+--[=[
+	@param self Tabs<Index>
+	@param open Index
 
+	@return boolean?	-- return true if ok
+
+	@method OpenTab
+	@within Tabs
+]=]
 function tabs.OpenTab<Index>(self: Tabs<Index>, open: Index): boolean?
 	if self.Tabs[open] then
 		self.OpenedChangedEvent:Fire(open)
@@ -59,6 +82,11 @@ function tabs.OpenTab<Index>(self: Tabs<Index>, open: Index): boolean?
 	end
 end
 
+--[=[
+	Constructor
+
+	@within Tabs
+]=]
 function tabs.new<Index>(tabsFrames: { [Index]: Frame }, ButtonsType: string, DefaultOpened: Index): Tabs<Index>
 
 	local OpenedChangedEvent = Instance.new("BindableEvent")

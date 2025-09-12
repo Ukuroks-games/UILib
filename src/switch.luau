@@ -3,9 +3,14 @@ local TweenService = game:GetService("TweenService")
 local stdlib = require(script.Parent.Parent.stdlib)
 local defaultSwitch = require(script.Parent.defaultSwitch)
 
---[[
+--[=[
 	This is default switch, you can make something like that using defaultSwitch
-]]
+
+	https://material.io/components/switches
+
+	@class Switch
+	@client
+]=]
 local switch = {}
 
 --[[
@@ -32,6 +37,14 @@ function switch.CalcSizes(self: Switch)
 		UDim.new(0, math.floor(self.ball.AbsoluteSize.X / 2))
 end
 
+
+--[=[
+	@param self Switch
+	@return Tween?
+
+	@method EnableAnimation
+	@within Switch
+]=]
 function switch.EnableAnimation(self: Switch): Tween?
 	return TweenService:Create(self.ball, TweenInfo.new(0.2), {
 		Position = UDim2.new(
@@ -43,6 +56,13 @@ function switch.EnableAnimation(self: Switch): Tween?
 	})
 end
 
+--[=[
+	@param self Switch
+	@return Tween?
+
+	@method DisableAnimation
+	@within Switch
+]=]
 function switch.DisableAnimation(self: Switch): Tween?
 	return TweenService:Create(self.ball, TweenInfo.new(0.2), {
 		Position = UDim2.new(
@@ -54,6 +74,12 @@ function switch.DisableAnimation(self: Switch): Tween?
 	})
 end
 
+--[=[
+	@param self Switch
+
+	@method Destroy
+	@within Switch
+]=]
 function switch.Destroy(self: Switch)
 	self.bar:Destroy()
 	self.ball:Destroy()
@@ -61,6 +87,12 @@ function switch.Destroy(self: Switch)
 	defaultSwitch.Destroy(self)
 end
 
+--[=[
+	@param background Frame
+	@param state boolean?
+	@return Switch
+	@within Switch
+]=]
 function switch.new(background: Frame, state: boolean?): Switch
 	local self = defaultSwitch.new(
 		Instance.new("TextButton"),

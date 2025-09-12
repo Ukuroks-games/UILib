@@ -1,3 +1,7 @@
+--[=[
+	@class Bar
+	@client
+]=]
 local Bar = {}
 
 export type BarStruct = {
@@ -13,10 +17,19 @@ function Bar.Destroy(self: Bar)
 	self.BarFill:Destroy()
 end
 
+--[=[
+	@param self Bar
+
+	@method UpdateFill
+	@within Bar
+]=]
 function Bar.UpdateFill(self: Bar)
 	self.BarFill.Size = UDim2.new(1, 0, self.Fill.Value, 0)
 end
 
+--[=[
+	Constructor
+]=]
 function Bar.new(
 	background: GuiObject,
 	Fill: number | NumberValue,

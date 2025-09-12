@@ -1,10 +1,17 @@
 local TweenService = game:GetService("TweenService")
 
---[[
+--[=[
 	Класс выпадающего списка
-]]
+
+	@class DropDownList
+	@client
+]=]
 local dropDownList = {}
 
+--[=[
+	@prop State {Opened: true, Close: false}
+	@within DropDownList
+]=]
 dropDownList.State = {
 	Opened = true,
 	Close = false,
@@ -38,6 +45,12 @@ export type DropDownList<Index> = {
 	Connections: { RBXScriptConnection },
 }
 
+--[=[
+	@param self DropDownList<Index>
+
+	@method Destroy
+	@within DropDownList
+]=]
 function dropDownList.Destroy<Index>(self: DropDownList<Index>)
 	for _, v in pairs(self.Connections) do
 		if v then
@@ -48,6 +61,14 @@ function dropDownList.Destroy<Index>(self: DropDownList<Index>)
 	table.clear(self)
 end
 
+--[=[
+
+	@param self DropDownList<Index>
+	@return Tween
+
+	@method Open
+	@within DropDownList
+]=]
 function dropDownList.Open<Index>(self: DropDownList<Index>): Tween
 	local t = TweenService:Create(
 		self.ListBackground,
@@ -64,6 +85,13 @@ function dropDownList.Open<Index>(self: DropDownList<Index>): Tween
 	return t
 end
 
+--[=[
+	@param self DropDownList<Index>
+	@return Tween?
+
+	@method Close
+	@within DropDownList
+]=]
 function dropDownList.Close<Index>(self: DropDownList<Index>): Tween?
 	if self.State ~= dropDownList.State.Close then
 		local t = TweenService:Create(
@@ -87,17 +115,18 @@ function dropDownList.Close<Index>(self: DropDownList<Index>): Tween?
 	end
 end
 
---[[
+--[=[
 	Constructor
 
-	OpenButton - button that open/close list
+	@param OpenButton GuiButton -- button that open/close list
+	@param points {[Index]: GuiObject} -- list of content of list
+	@param OpenSize UDim -- how long list down
+	@param OpenAnimationTime number?
+	@param ListBackground Fame? -- background opened list. If you want you can add image to background of list using it. 
+	@return DropDownList<Index>
 
-	points - list of content of list
-
-	OpenSize - how long list down
-
-	ListBackground - background opened list. If you want you can add image to background of list using it. 
-]]
+	@within DropDownList
+]=]
 function dropDownList.new<Index>(
 	OpenButton: GuiButton,
 	points: { [Index]: GuiObject },

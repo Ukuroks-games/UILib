@@ -7,13 +7,57 @@ local smoothBar = require(script.smoothBar)
 local switch = require(script.switch)
 local tabs = require(script.tabs)
 
-return {
-	bar = bar,
-	smoothBar = smoothBar,
-	switch = switch,
-	DropDownList = DropDownList,
-	checkbox = checkbox,
-	defaultSwitch = defaultSwitch,
-	tabs = tabs,
-	slider = slider
-}
+--[=[
+	@class UILib
+]=]
+local UILib = {}
+
+--[=[
+	@prop bar Bar
+	@within UILib
+]=]
+UILib.bar = bar
+
+--[=[
+	@prop smoothBar SmoothBar
+	@within UILib
+]=]
+UILib.smoothBar = smoothBar
+
+--[=[
+	@prop switch Switch
+	@within UILib
+]=]
+UILib.switch = switch
+
+--[=[
+	@prop DropDownList DropDownList
+	@within UILib
+]=]
+UILib.DropDownList = DropDownList
+
+--[=[
+	@prop checkbox Checkbox
+	@within UILib
+]=]
+UILib.checkbox = checkbox
+
+--[=[
+	@prop defaultSwitch defaultSwitch
+	@within UILib
+]=]
+UILib.defaultSwitch = defaultSwitch
+	
+--[=[
+	@prop tabs Tabs
+	@within UILib
+]=]	
+UILib.tabs = tabs
+
+--[=[
+	@prop slider Slider
+	@within UILib
+]=]
+UILib.slider = slider
+
+return UILib

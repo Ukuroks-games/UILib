@@ -4,11 +4,18 @@ local stdlib = require(script.Parent.Parent.stdlib)
 
 local mutex = stdlib.mutex
 
---[[
+--[=[
 	Interface & base functions for switch or checkbox or something like
-]]
+
+	@class defaultSwitch
+	@client
+]=]
 local defaultSwitch = {}
 
+--[=[
+	@type Func (self: DefaultSwitch)->Tween?
+	@within defaultSwitch
+]=]
 export type Func = (self: DefaultSwitch) -> Tween?
 
 export type DefaultSwitchStruct = {
@@ -28,9 +35,14 @@ export type DefaultSwitch = typeof(setmetatable(
 	{ __index = defaultSwitch }
 ))
 
---[[
+--[=[
 	Destroy default switch 
-]]
+
+	@param self defaultSwitch
+
+	@method Destroy
+	@within defaultSwitch
+]=]
 function defaultSwitch.Destroy(self: DefaultSwitch)
 	self.State:Destroy()
 	self.AnimationMutex:Destroy()
@@ -43,10 +55,26 @@ function defaultSwitch.Destroy(self: DefaultSwitch)
 	end
 end
 
+--[=[
+	@param self defaultSwitch
+	@param newState boolean
+
+	@method Destroy
+	@within defaultSwitch
+]=]
 function defaultSwitch.SetState(self: DefaultSwitch, newState: boolean)
 	self.State.Value = newState
 end
 
+--[=[
+	Constructor
+
+	@param button GuiButton
+	@param state boolean?
+	@param enableAnimation Func?
+	@param disableAnimation Func?
+	@return defaultSwitch
+]=]
 function defaultSwitch.new(
 	button: GuiButton,
 	state: boolean?,
