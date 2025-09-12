@@ -28,5 +28,7 @@
 	"luau-lsp.sourcemap.rojoProjectFile": "tests.project.json",
 	"luau-lsp.platform.type": "roblox",
 	"stylua.targetReleaseVersion": "latest",
-	"luau-lsp.types.robloxSecurityLevel": "LocalUserSecurity"
+	"luau-lsp.types.robloxSecurityLevel": "LocalUserSecurity",
+	"luau-lsp.sourcemap.useVSCodeWatcher": true,
+	"luau-lsp.sourcemap.generatorCommand": "make sourcemap"
 }

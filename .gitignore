@@ -6,7 +6,6 @@
 /*.rbxl.lock
 *.rbxl
 *.rbxm
-*.zip
 
 wally.lock
 sourcemap.json
@@ -16,4 +15,8 @@ DevPackages/
 ServerPackages/
 
 build/
+*.zip
 
+/*.project.json
+
+node_modules/

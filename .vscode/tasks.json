@@ -1,19 +1,23 @@
 {
+    "command": "make",
+    "linux": {
+        "args": [
+            "-j$(nproc)",
+            "\"BUILD_DIR=/tmp/${workspaceFolderBasename}\""
+        ]
+    },
+    "osx": {
+        "args": [
+            "-j$(nproc)"
+        ]
+    },
     "tasks": [
         {
             "type": "shell",
-            "label": "Install programs",
-            "detail": "Install programms using aftman",
-            "command": "aftman install && exit",
-            "group": {
-                "kind": "none"
-            },
-            "problemMatcher": []
-        },
-        {
-            "type": "shell",
             "label": "Load depends",
-            "command": "wally install && exit",
+            "args": [
+                "Packages"
+            ],
             "group": {
                 "kind": "none"
             },
@@ -24,7 +28,9 @@
             "type": "shell",
             "label": "Publish",
             "detail": "Putblish this library as wally package",
-            "command": "make publish && exit",
+            "args": [
+                "publish"
+            ],
             "group": {
                 "kind": "none"
             },
@@ -32,9 +38,22 @@
         },
         {
             "type": "shell",
+            "label": "Package",
+            "detail": "Build wally .zip package",
+            "args": [
+                "package"
+            ],
+            "group": {
+                "kind": "build"
+            }
+        },
+        {
+            "type": "shell",
             "label": "Build tests",
             "detail": "Build tests place",
-            "command": "make tests && exit",
+            "args": [
+                "tests"
+            ],
             "group": {
                 "kind": "build",
                 "isDefault": true
@@ -44,7 +63,9 @@
             "type": "shell",
             "label": "Build rbxm",
             "detail": "Build rbxm library",
-            "command": "make rbxm && exit",
+            "args": [
+                "rbxm"
+            ],
             "group": {
                 "kind": "build",
                 "isDefault": true
@@ -52,9 +73,22 @@
         },
         {
             "type": "shell",
+            "label": "Clean",
+            "detail": "Clean builded files",
+            "args": [
+                "clean"
+            ],
+            "group": {
+                "kind": "build"
+            }
+        },
+        {
+            "type": "shell",
             "label": "Generate sourcemap",
             "detail": "Generate sourcemap for this library",
-            "command": "make sourcemap && exit",
+            "args": [
+                "sourcemap"
+            ],
             "group": {
                 "kind": "none"
             },
@@ -64,12 +98,38 @@
             "type": "shell",
             "label": "Lint",
             "detail": "Run selene",
-            "command": "make lint && exit",
+            "args": [
+                "lint",
+                "--ignore-errors"
+            ],
             "group": {
                 "kind": "none"
             },
             "problemMatcher": []
-        }
+        },
+        {
+            "type": "shell",
+            "label": "Build docs",
+            "detail": "Run selene",
+            "args": [
+                "docs"
+            ],
+            "group": {
+                "kind": "build"
+            }
+        },
+        {
+            "type": "shell",
+            "label": "Watch docs",
+            "detail": "Build html docs and watch changes in sources",
+            "args": [
+                "docs-dev"
+            ],
+            "group": {
+                "kind": "build"
+            },
+            "isBackground": true
+        },
     ],
     "windows": {
         "options": {
