@@ -12,10 +12,11 @@ RBXM_BUILD = $(LIBNAME)lib.rbxm
 
 SOURCES = \
 	src/init.luau	\
-	src/slider.luau	\
 	src/switch.luau	\
 	src/tabs.luau	\
 	src/checkbox.luau	\
+	src/bar.luau	\
+	src/smoothBar.luau	\
 	src/defaultSwitch.luau	\
 	src/DropDownList.luau	\
 	src/window/window.luau	\
