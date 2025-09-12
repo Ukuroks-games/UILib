@@ -22,7 +22,8 @@ SOURCES = \
 	src/window/skin.lua
 
 TEST_SOURCES = \
-	tests/test.client.luau
+	tests/bar.client.luau	\
+	tests/dropdownList.client.luau
 
 ROJO_PROJECTS=projects
 
