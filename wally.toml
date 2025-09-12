@@ -3,7 +3,7 @@ name = "egor00f/uilib"
 
 description = "small library that implement some UI elements"
 
-version = "0.1.1"
+version = "0.1.2"
 
 registry = "https://github.com/UpliftGames/wally-index"
 
