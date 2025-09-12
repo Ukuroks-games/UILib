@@ -12,14 +12,14 @@ RBXM_BUILD = $(LIBNAME)lib.rbxm
 
 SOURCES = \
 	src/init.luau	\
-	src/slider.lua	\
-	src/switch.lua	\
-	src/tabs.lua	\
-	src/checkbox.lua	\
-	src/defaultSwitch.lua	\
-	src/DropDownList.lua	\
-	src/window/window.lua	\
-	src/window/skin.lua
+	src/slider.luau	\
+	src/switch.luau	\
+	src/tabs.luau	\
+	src/checkbox.luau	\
+	src/defaultSwitch.luau	\
+	src/DropDownList.luau	\
+	src/window/window.luau	\
+	src/window/skin.luau
 
 TEST_SOURCES = \
 	tests/bar.client.luau	\
